@@ -1,2 +1,2 @@
-# python_package_template
-Template for packages.
+# python-package template
+Template for python packages.

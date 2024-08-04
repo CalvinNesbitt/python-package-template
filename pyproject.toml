@@ -1,96 +1,82 @@
-# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
-
-[build-system]
-requires = [
-  "setuptools>=60",
-  "setuptools-scm>=8",
-]
-
 [project]
 name = "package-name"
-
-description = "A python package"
-keywords = [
-]
-
-license = { file = "LICENSE" }
+dynamic = ["version"]
+description = "Description"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+keywords = ["keywords"]
 authors = [
-  { name = "Calvin Nesbit", email = "cf.nesbit94@gmail.com" },
+  {name = "Calvin Nesbitt", email = "cf.nesbitt94@gmail.com" },
 ]
 
-requires-python = ">=3.9"
-
+# For a list of valid classifiers, see https://pypi.org/classifiers/
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Intended Audience :: Developers",
-  "License :: OSI Approved :: Apache Software License",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+  "Development Status :: 3 - Alpha",
 ]
 
-dynamic = [
-  "version",
-]
 dependencies = [
+  #e.g."pandas>2",
 ]
 
-optional-dependencies.all = [
-]
-
-optional-dependencies.create = [
-]
-
-optional-dependencies.dev = [
-  "aiohttp",
-  "boto3",
-  "earthkit-data[mars]>=0.9",
-  "earthkit-geo>=0.2",
-  "earthkit-meteo",
-  "ecmwflibs>=0.6.3",
-  "entrypoints",
-  "gcsfs",
-  "kerchunk",
-  "nbsphinx",
-  "pandoc",
-  "pyproj",
+[project.optional-dependencies] # Optional
+dev = [
+  "pre-commit",
+  "black",
   "pytest",
-  "requests",
-  "rstfmt",
-  "s3fs",
-  "sphinx",
-  "sphinx-argparse<0.5",
-  "sphinx-rtd-theme",
+  "pytest-order",
+  "pytest-asyncio",
+  "pytest-cov",
+  "mypy",
+  "tox",
+  "coverage",
+  "types-requests",
+  "python-dotenv",
+  ]
+
+
+[project.urls]  # Optional
+"Homepage" = "https://github.com/CalvinNesbitt/package-name"
+"Bug Reports" = "https://github.com/CalvinNesbitt/package-name/issues"
+"Source" = "https://github.com/CalvinNesbitt/package-name"
+
+# The following would provide a command line executable called `cli`
+# which executes the function `main` from this package when invoked.
+[project.scripts]  # Optional
+cli = "cli.cli:main"
+
+# This is configuration specific to the `setuptools` build backend.
+# If you are using a different build backend, you will need to change this.
+[tool.setuptools]
+# If there are data files included in your packages that need to be
+# installed, specify them here.
+# package-data = {"sample" = ["*.dat"]}
+
+[tool.setuptools.packages]
+find = {}
+
+
+[tool.pytest.ini_options]
+python_files = [
+    "test_*.py",
+    "*_test.py",
+    "tests.py",
+]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--doctest-modules",
+    "--doctest-glob=\\*.rst",
+]
+testpaths = [
+    "tests"
 ]
 
-optional-dependencies.docs = [
-]
+[tool.bandit]
+exclude_dirs = ["tests"]
 
-optional-dependencies.kerchunk = [
-]
-
-optional-dependencies.remote = [
-]
-
-optional-dependencies.tests = [
-  "pytest",
-]
-
-urls.Documentation = "https://anemoi-datasets.readthedocs.io/"
-urls.Homepage = "https://github.com/ecmwf/anemoi-datasets/"
-urls.Issues = "https://github.com/ecmwf/anemoi-datasets/issues"
-urls.Repository = "https://github.com/ecmwf/anemoi-datasets/"
-# Changelog = "https://github.com/ecmwf/anemoi-datasets/CHANGELOG.md"
-
-[tool.setuptools.package-data]
-"anemoi.datasets.data" = [
-  "*.css",
-]
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-version_file = "src/package/_version.py"
